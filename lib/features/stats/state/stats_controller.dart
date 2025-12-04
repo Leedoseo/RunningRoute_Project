@@ -14,6 +14,7 @@ class StatsController extends ChangeNotifier {
 
   // 데이터
   bool _loading = false;
+  String? _error;
   List<RouteLog> _all = [];          // 전체(메모리)
   List<RouteLog> _inRange = [];      // 현재 기간 데이터
   List<double> _series = [];         // 일별 거리(km)
@@ -25,6 +26,7 @@ class StatsController extends ChangeNotifier {
   StatsPeriod get period => _period;
   int get offset => _offset;
   bool get loading => _loading;
+  String? get error => _error;
 
   List<double> get series => _series;
   String get totalDistanceText => _fmtKm(_totalKm);
@@ -36,10 +38,15 @@ class StatsController extends ChangeNotifier {
   // 퍼블릭 API
   Future<void> init() async {
     _loading = true;
+    _error = null;
     notifyListeners();
     try {
       _all = await repo.list(sort: 'date_desc'); // 전부 가져와서 메모리에 유지
       _recompute();
+    } catch (e, stackTrace) {
+      _error = e.toString();
+      debugPrint('Failed to load stats: $e');
+      debugPrint('Stack trace: $stackTrace');
     } finally {
       _loading = false;
       notifyListeners();

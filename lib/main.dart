@@ -15,7 +15,8 @@ Future<void> main() async {
 
   await ThemeController.instance.load();
   await AuthController.instance.initialize();
-  await RepoRegistry.I.init(seedIfEmpty: false);
+  // Firebase Firestore를 백엔드로 사용
+  await RepoRegistry.I.init(useFirestore: true);
   runApp(const RouteLogApp());
 }
 

@@ -80,9 +80,7 @@ class RoutesListScreen extends StatelessWidget {
       for (int i = 0; i < items.length; i++)
         Padding(
           padding: EdgeInsets.only(top: i == 0 ? 0 : 8),
-          // ───────────────────────────────
           // 스와이프 삭제(Dismissible) 적용
-          // ───────────────────────────────
           child: Dismissible(
             key: ValueKey('routes_${items[i].id}'),
             direction: DismissDirection.endToStart,
@@ -137,9 +135,7 @@ class RoutesListScreen extends StatelessWidget {
     ];
   }
 
-  // ───────────────────────────────
   // 유틸들
-  // ───────────────────────────────
   static String _km(double meters) {
     final km = meters / 1000.0;
     return km >= 10 ? '${km.toStringAsFixed(0)}km' : '${km.toStringAsFixed(2)}km';

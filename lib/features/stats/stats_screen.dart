@@ -31,7 +31,7 @@ class StatsScreen extends StatelessWidget {
             return ListView(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
               children: [
-                // ── 탭 토글 (주간/월간) + 기간 이동
+                // 탭 토글 (주간/월간) + 기간 이동
                 Row(
                   children: [
                     SegmentChip(
@@ -61,7 +61,7 @@ class StatsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
 
-                // ── 요약 카드
+                // 요약 카드
                 LayoutBuilder(
                   builder: (context, constraints) {
                     final w = constraints.maxWidth;
@@ -94,7 +94,7 @@ class StatsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
 
-                // ── 추세 차트
+                // 추세 차트
                 TrendCard(
                   title: "러닝 추세",
                   subtitle: isWeekly ? "일별 거리(km)" : "일별 거리(km)",
@@ -104,7 +104,7 @@ class StatsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
 
-                // ── 세션 요약
+                // 세션 요약
                 Text("세션 요약", style: t.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
                 const SizedBox(height: 8),
 

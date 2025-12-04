@@ -17,15 +17,13 @@ class SummaryCard extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
     final t  = Theme.of(context).textTheme;
 
-    // ✅ 접근성 큰글자에서도 레이아웃 붕괴 방지 (필요시 1.2~1.4로 조정)
     final mq = MediaQuery.of(context);
     final clampedScaler = mq.textScaler.clamp(maxScaleFactor: 1.2);
 
     return MediaQuery(
       data: mq.copyWith(textScaler: clampedScaler),
       child: Container(
-        // height: 94, // ❌ 고정 높이 제거
-        constraints: const BoxConstraints(minHeight: 94), // ✅ 최소 높이만 보장
+        constraints: const BoxConstraints(minHeight: 94),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: cs.surface,
@@ -43,12 +41,11 @@ class SummaryCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // ── 라벨: 길면 …, 1~2줄 허용
+                  // 라벨: 길면 …, 1~2줄 허용
                   Text(
                     label,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    // textScaler: const TextScaler.linear(1.0), // ❌ 고정 스케일 제거
                     style: t.bodyMedium?.copyWith(
                       color: cs.onSurfaceVariant,
                       fontWeight: FontWeight.w600,
@@ -57,7 +54,7 @@ class SummaryCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
 
-                  // ── 값: 길어도 잘리지 않게 자동 축소
+                  // 값: 길어도 잘리지 않게 자동 축소
                   FittedBox(
                     alignment: Alignment.centerLeft,
                     fit: BoxFit.scaleDown,
@@ -66,8 +63,7 @@ class SummaryCard extends StatelessWidget {
                       maxLines: 1,
                       softWrap: false,
                       textWidthBasis: TextWidthBasis.longestLine,
-                      // textScaler: const TextScaler.linear(1.0), // ❌ 고정 스케일 제거
-                      style: t.titleLarge?.copyWith( // 유지: 너가 쓰던 titleLarge
+                      style: t.titleLarge?.copyWith(
                         fontWeight: FontWeight.w800,
                         letterSpacing: -0.2,
                       ),

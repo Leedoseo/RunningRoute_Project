@@ -119,53 +119,6 @@ class _EditNoteAndTagsSheetState extends State<EditNoteAndTagsSheet> {
             ),
             const SizedBox(height: 8),
 
-            // // 탭 본문
-            // Flexible(
-            //   child: SingleChildScrollView(
-            //     padding: const EdgeInsets.symmetric(horizontal: 16),
-            //     child: ConstrainedBox(
-            //       constraints: const BoxConstraints(minHeight: 0),
-            //       child: TabBarView(
-            //         physics: const NeverScrollableScrollPhysics(),
-            //         children: [
-            //           // 탭1 : 메모
-            //           Padding(
-            //             padding: const EdgeInsets.only(top: 4),
-            //             child: TextField(
-            //               controller: _controller,
-            //               autofocus: true,
-            //               minLines: 4,
-            //               maxLines: 8,
-            //               textInputAction: TextInputAction.newline,
-            //               decoration: InputDecoration(
-            //                 hintText: "루트에 대한 메모를 입력하세요",
-            //                 border: OutlineInputBorder(
-            //                   borderRadius: BorderRadius.circular(12),
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //
-            //           // 탭2 : 태그
-            //           Padding(
-            //             padding: const EdgeInsets.only(top: 4),
-            //             child: TagSelector(
-            //               tags: widget.availableTags,
-            //               selected: _selectedTags,
-            //               onToggle: (t) {
-            //                 setState(() {
-            //                   _selectedTags.contains(t)
-            //                       ? _selectedTags.remove(t)
-            //                       : _selectedTags.add(t);
-            //                 });
-            //               },
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
             SizedBox(
               height: sheetHeight,
               child: TabBarView(

@@ -44,7 +44,7 @@ class RecordController extends ChangeNotifier {
     return sec / km; // 초/킬로
   }
 
-  // ───────── 권한/서비스 ─────────
+  // 권한/서비스
   Future<void> initPermission() async {
     final serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
@@ -66,7 +66,7 @@ class RecordController extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ───────── 기록 제어 ─────────
+  // 기록 제어
   Future<void> start() async {
     if (_status == RecordStatus.recording) return;
 
@@ -121,7 +121,7 @@ class RecordController extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ───────── 위치 처리 + 자동 일시정지 ─────────
+  // 위치 처리 + 자동 일시정지
   void _onPosition(Position p) {
     final now = DateTime.now();
     final pt = LatLng(p.latitude, p.longitude);
@@ -179,7 +179,7 @@ class RecordController extends ChangeNotifier {
     }
   }
 
-  // ───────── 플랫폼별 위치 설정(정확도 반영) ─────────
+  // 플랫폼별 위치 설정(정확도 반영)
   LocationSettings _resolvePlatformSettings() {
     final s = SettingsController.instance;
     final isHigh = s.accuracy == GpsAccuracyOption.high;
@@ -215,7 +215,7 @@ class RecordController extends ChangeNotifier {
     }
   }
 
-  // ───────── 유틸 ─────────
+  // 유틸
   static double _haversine(LatLng a, LatLng b) {
     const R = 6371000.0; // m
     final dLat = _deg2rad(b.latitude - a.latitude);

@@ -28,7 +28,7 @@ class RouteLog {
     this.notes,
   });
 
-  // ---------- 편의 메서드/게터 ----------
+  // 편의 메서드/게터
   double get distanceKm => distanceMeters / 1000.0;
 
   /// 평균 페이스를 "m'ss\"/km" 포맷으로 반환 (없으면 "-")
@@ -59,7 +59,7 @@ class RouteLog {
 
   Duration get elapsed => endedAt.difference(startedAt);
 
-  // ---------- copyWith ----------
+  // copyWith
   RouteLog copyWith({
     String? id,
     String? title,
@@ -88,7 +88,7 @@ class RouteLog {
     );
   }
 
-  // ---------- 직렬화 ----------
+  // 직렬화
   Map<String, dynamic> toJson() => {
     'id': id,
     'title': title,
@@ -117,7 +117,7 @@ class RouteLog {
     source: json['source'] as String,
   );
 
-  // ---------- 동등성/디버그 ----------
+  // 동등성/디버그
   @override
   String toString() =>
       'RouteLog(id: $id, title: $title, distance: ${distanceText}, time: $movingTimeText, pace: $avgPaceText)';
@@ -153,7 +153,7 @@ class RouteLog {
       (notes?.hashCode ?? 0) ^
       source.hashCode;
 
-  // ----- 리스트 동등성/해시 보조 -----
+  // 리스트 동등성/해시 보조
   static bool _listEqualsLatLng(List<LatLngDto> a, List<LatLngDto> b) {
     if (identical(a, b)) return true;
     if (a.length != b.length) return false;

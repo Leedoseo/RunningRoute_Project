@@ -10,9 +10,7 @@ import 'package:routelog_project/features/record/state/record_controller.dart';
 import 'package:routelog_project/core/navigation/app_router.dart';
 import 'package:routelog_project/core/data/repository/repo_registry.dart';
 import 'package:routelog_project/features/record/services/record_saver.dart';
-import 'package:routelog_project/core/data/models/models.dart'; // ✅ RouteLog 등
-
-// PR용 주석 추가
+import 'package:routelog_project/core/data/models/models.dart';
 
 class RecordScreen extends StatelessWidget {
   const RecordScreen({super.key});
@@ -116,7 +114,7 @@ class RecordScreen extends StatelessWidget {
                       ],
                       const SizedBox(height: 8),
                       RecordTimerGaugeCard(
-                        progress: progress,               // ✅ 게이지 진행률 반영
+                        progress: progress,
                         durationText: durationText,
                         distanceText: distanceText,
                         paceText: pace,
@@ -151,7 +149,7 @@ class RecordScreen extends StatelessWidget {
                       final saver = RecordSaver(repo: RepoRegistry.I.routeRepo);
                       RouteLog saved;
                       try {
-                        saved = await saver.saveFromController(ctrl); // ✅ non-null
+                        saved = await saver.saveFromController(ctrl);
                       } catch (e) {
                         if (!context.mounted) return;
                         _snack(context, "저장 실패: $e");

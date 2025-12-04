@@ -41,7 +41,6 @@ class ControlBar extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
     );
 
-    // 아이콘/라벨 간격은 작은 높이에서 너무 답답하지 않게 약간만 유지
     const gap = SizedBox(width: 6);
 
     return Row(

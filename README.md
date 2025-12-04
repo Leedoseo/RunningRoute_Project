@@ -65,8 +65,7 @@ lib/
 - 거리, 시간, 페이스 계산
 - 자동 일시정지 (설정 가능)
 - 백그라운드 위치 업데이트 (iOS/Android)
-- ![메인 화면](docs/img/final_record.png)
-
+<img src="docs/img/final_record.png" width="300" />
 ### 2. 경로 관리 (Routes)
 
 - 경로 목록 보기 (날짜/거리 정렬)

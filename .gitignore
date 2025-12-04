@@ -43,3 +43,18 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firebase sensitive configuration
+# WARNING: firebase_options.dart contains API keys
+# Regenerate using: flutterfire configure
+lib/firebase_options.dart
+firebase_options.dart
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Firebase local config
+.firebase/
+.firebaserc

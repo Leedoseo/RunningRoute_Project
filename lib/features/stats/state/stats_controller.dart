@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:routelog_project/core/data/models/route_log.dart';
 import 'package:routelog_project/core/data/repository/i_route_repository.dart';
+import 'package:routelog_project/core/mixins/error_handling_mixin.dart';
+import 'package:routelog_project/core/utils/formatters.dart';
 
 enum StatsPeriod { weekly, monthly }
 
-class StatsController extends ChangeNotifier {
+class StatsController extends ChangeNotifier with ErrorHandlingMixin {
   final IRouteRepository repo;
   StatsController({required this.repo});
 
@@ -13,7 +15,6 @@ class StatsController extends ChangeNotifier {
   int _offset = 0; // 0=이번 주/달, -1=이전, -2=그 이전…
 
   // 데이터
-  bool _loading = false;
   List<RouteLog> _all = [];          // 전체(메모리)
   List<RouteLog> _inRange = [];      // 현재 기간 데이터
   List<double> _series = [];         // 일별 거리(km)
@@ -24,26 +25,22 @@ class StatsController extends ChangeNotifier {
   // 공개 게터
   StatsPeriod get period => _period;
   int get offset => _offset;
-  bool get loading => _loading;
 
   List<double> get series => _series;
-  String get totalDistanceText => _fmtKm(_totalKm);
-  String get totalTimeText => _fmtDur(_totalTime);
-  String get avgPaceText =>
-      (_avgPaceSecPerKm == null) ? '-' : _fmtPace(_avgPaceSecPerKm!);
+  String get totalDistanceText => Formatters.formatDistance(_totalKm * 1000);
+  String get totalTimeText => Formatters.formatDuration(_totalTime);
+  String get avgPaceText => Formatters.formatPace(_avgPaceSecPerKm);
   List<RouteLog> get sessions => _inRange;
 
   // 퍼블릭 API
   Future<void> init() async {
-    _loading = true;
-    notifyListeners();
-    try {
-      _all = await repo.list(sort: 'date_desc'); // 전부 가져와서 메모리에 유지
-      _recompute();
-    } finally {
-      _loading = false;
-      notifyListeners();
-    }
+    await handleError(
+      () async {
+        _all = await repo.list(sort: 'date_desc');
+        _recompute();
+      },
+      errorMessage: 'Failed to load stats',
+    );
   }
 
   void setPeriod(StatsPeriod p) {
@@ -146,24 +143,5 @@ class StatsController extends ChangeNotifier {
     }
     if (kmSum <= 0) return null;
     return secSum / kmSum; // sec/km
-  }
-
-  static String _fmtKm(double km) =>
-      km >= 10 ? '${km.toStringAsFixed(0)} km' : '${km.toStringAsFixed(2)} km';
-
-  static String _fmtDur(Duration d) {
-    final h = d.inHours;
-    final m = d.inMinutes % 60;
-    final s = d.inSeconds % 60;
-    if (h > 0) {
-      return '${h.toString().padLeft(2, '0')}:${m.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}';
-    }
-    return '${m.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}';
-  }
-
-  static String _fmtPace(double secPerKm) {
-    final m = secPerKm ~/ 60;
-    final s = (secPerKm % 60).round();
-    return "$m'${s.toString().padLeft(2, '0')}\"/km";
   }
 }

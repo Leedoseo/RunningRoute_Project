@@ -65,7 +65,7 @@ ThemeData _buildTheme(ColorScheme cs, {required bool isDark}) {
     ),
 
     // Cards
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: cs.surface,
       elevation: 0,
       surfaceTintColor: Colors.transparent,
@@ -140,7 +140,7 @@ ThemeData _buildTheme(ColorScheme cs, {required bool isDark}) {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
     ),
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
       backgroundColor: cs.surface,
       surfaceTintColor: Colors.transparent,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

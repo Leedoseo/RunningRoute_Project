@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:routelog_project/core/auth/auth_controller.dart';
+import 'package:routelog_project/core/navigation/app_router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -35,13 +36,32 @@ class _LoginScreenState extends State<LoginScreen> {
           _emailController.text.trim(),
           _passwordController.text,
         );
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('로그인 성공!')),
+          );
+          // 로그인 성공 후 홈 화면으로 이동
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            Routes.home,
+            (route) => false,
+          );
+        }
       } else {
         await auth.signUpWithEmail(
           _emailController.text.trim(),
           _passwordController.text,
         );
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('회원가입 성공! 자동 로그인됩니다.')),
+          );
+          // 회원가입 성공 후 홈 화면으로 이동
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            Routes.home,
+            (route) => false,
+          );
+        }
       }
-      // 로그인 성공 시 자동으로 홈으로 이동 (AuthController의 리스너가 처리)
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

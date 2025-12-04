@@ -354,6 +354,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const SettingsSectionTitle("계정"),
           const SizedBox(height: 8),
           SettingsTile(
+            leading: Icons.account_circle_rounded,
+            title: "로그인 정보",
+            subtitle: AuthController.instance.user?.email ?? "로그인되지 않음",
+            onTap: () => _snack("현재 로그인: ${AuthController.instance.user?.email ?? '없음'}"),
+          ),
+          const SizedBox(height: 8),
+          SettingsTile(
             leading: Icons.logout_rounded,
             title: "로그아웃",
             subtitle: "현재 계정에서 로그아웃",
@@ -364,13 +371,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   title: const Text('로그아웃'),
                   content: const Text('정말 로그아웃하시겠습니까?'),
                   actions: [
-                    TextButton(
-                      onPressed: () => Navigator.of(ctx).pop(false),
-                      child: const Text('취소'),
-                    ),
                     FilledButton(
                       onPressed: () => Navigator.of(ctx).pop(true),
                       child: const Text('로그아웃'),
+                    ),
+                    FilledButton(
+                      onPressed: () => Navigator.of(ctx).pop(false),
+                      style: FilledButton.styleFrom(
+                        backgroundColor: Colors.grey[400],
+                      ),
+                      child: const Text('취소'),
                     ),
                   ],
                 ),

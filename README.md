@@ -66,12 +66,14 @@ lib/
 - 자동 일시정지 (설정 가능)
 - 백그라운드 위치 업데이트 (iOS/Android)
 <img src="docs/img/final_record.png" width="300" />
+
 ### 2. 경로 관리 (Routes)
 
 - 경로 목록 보기 (날짜/거리 정렬)
 - 경로 검색 (제목, 노트)
 - 태그 기반 필터링
 - 경로 상세 정보 및 지도 표시
+<img src="docs/img/final_routes.png" width="300" />
 
 ### 3. 통계 (Stats)
 
@@ -79,6 +81,8 @@ lib/
 - 평균 페이스
 - 최장 거리 기록
 - 월별/주별 통계
+<img src="docs/img/final_stats.png" width="300" />
+<img src="docs/img/final_home.png" width="300" />
 
 ### 4. 설정 (Settings)
 
@@ -86,6 +90,7 @@ lib/
 - GPS 정확도 설정
 - 자동 일시정지 설정
 - 로그아웃
+<img src="docs/img/final_settings.png" width="300" />
 
 
 ## 📝 개발 로그

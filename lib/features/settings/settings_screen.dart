@@ -4,6 +4,8 @@ import 'package:routelog_project/features/routes/route_import_sheet.dart';
 import 'package:routelog_project/features/routes/route_export_sheet.dart';
 import 'package:routelog_project/core/theme/theme_controller.dart';
 import 'package:routelog_project/features/settings/state/settings_controller.dart';
+import 'package:routelog_project/core/auth/auth_controller.dart';
+import 'package:routelog_project/core/navigation/app_router.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -346,6 +348,44 @@ class _SettingsScreenState extends State<SettingsScreen> {
             title: "데이터 가져오기",
             subtitle: "GPX/JSON으로 가져오기 (미구현)",
             onTap: () => showRouteImportSheet(context, from: "설정"),
+          ),
+
+          const SizedBox(height: 24),
+          const SettingsSectionTitle("계정"),
+          const SizedBox(height: 8),
+          SettingsTile(
+            leading: Icons.logout_rounded,
+            title: "로그아웃",
+            subtitle: "현재 계정에서 로그아웃",
+            onTap: () async {
+              final confirm = await showDialog<bool>(
+                context: context,
+                builder: (ctx) => AlertDialog(
+                  title: const Text('로그아웃'),
+                  content: const Text('정말 로그아웃하시겠습니까?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(ctx).pop(false),
+                      child: const Text('취소'),
+                    ),
+                    FilledButton(
+                      onPressed: () => Navigator.of(ctx).pop(true),
+                      child: const Text('로그아웃'),
+                    ),
+                  ],
+                ),
+              );
+
+              if (confirm == true) {
+                await AuthController.instance.signOut();
+                if (mounted) {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    Routes.login,
+                    (route) => false,
+                  );
+                }
+              }
+            },
           ),
 
           const SizedBox(height: 24),

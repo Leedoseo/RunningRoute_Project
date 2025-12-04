@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "156312108020",
+    "project_id": "routelog-18417",
+    "storage_bucket": "routelog-18417.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156312108020:android:9de4bf5a7293d014bb97a1",
+        "android_client_info": {
+          "package_name": "com.example.routelog_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV6vQN0Ty-AXW8vishR02PkfU7RPEZEG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

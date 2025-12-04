@@ -56,75 +56,6 @@ lib/
 └── main.dart                      # 앱 진입점
 ```
 
-## 🚀 시작하기
-
-### 필수 요구사항
-
-- Flutter SDK 3.0 이상
-- Dart 3.0 이상
-- iOS 개발: Xcode 14 이상, CocoaPods
-- Android 개발: Android Studio, Android SDK
-
-### 설치 방법
-
-1. **저장소 클론**
-
-```bash
-git clone https://github.com/Leedoseo/RouteLog_project.git
-cd RouteLog_project
-```
-
-2. **의존성 설치**
-
-```bash
-flutter pub get
-```
-
-3. **Firebase 설정**
-
-Firebase 프로젝트가 필요합니다. 설정 방법:
-
-```bash
-# FlutterFire CLI 설치
-dart pub global activate flutterfire_cli
-
-# Firebase 프로젝트 연결
-flutterfire configure
-```
-
-자세한 내용은 [FIREBASE_SETUP.md](FIREBASE_SETUP.md)를 참고하세요.
-
-4. **Firestore 보안 규칙 배포**
-
-```bash
-firebase deploy --only firestore:rules
-firebase deploy --only firestore:indexes
-```
-
-5. **앱 실행**
-
-```bash
-flutter run
-```
-
-## 🔐 보안
-
-민감한 정보 관리를 위해 다음 파일들이 `.gitignore`에 포함되어 있습니다:
-
-- `lib/firebase_options.dart` - Firebase API 키
-- `.env` - 환경 변수
-
-자세한 보안 가이드는 [SECURITY.md](SECURITY.md)를 참고하세요.
-
-## 🧪 테스트
-
-```bash
-# 단위 테스트
-flutter test
-
-# 통합 테스트
-flutter test integration_test
-```
 
 ## 📊 주요 기능 상세
 
@@ -156,19 +87,6 @@ flutter test integration_test
 - 자동 일시정지 설정
 - 로그아웃
 
-## 🛠️ 개발 도구
-
-### 코드 분석
-
-```bash
-flutter analyze
-```
-
-### 코드 포맷팅
-
-```bash
-dart format .
-```
 
 ## 📝 개발 로그
 
@@ -180,18 +98,7 @@ dart format .
 - ✅ 에러 핸들링 강화
 - ✅ 보안 설정 개선
 
-## 🤝 기여
-
-이 프로젝트는 포트폴리오용입니다.
 
 ## 📄 라이선스
 
 이 프로젝트는 개인 포트폴리오용으로 제작되었습니다.
-
-## 👤 작성자
-
-- GitHub: [@Leedoseo](https://github.com/Leedoseo)
-
-## 📞 문의
-
-프로젝트에 대한 질문이나 피드백은 GitHub Issues를 통해 남겨주세요.

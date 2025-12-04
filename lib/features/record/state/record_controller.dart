@@ -22,6 +22,9 @@ class RecordController extends ChangeNotifier {
   // 위치 구독
   StreamSubscription<Position>? _posSub;
 
+  // Timer for elapsed time updates
+  Timer? _timer;
+
   // 자동 일시정지 보조 상태
   DateTime? _lastSampleAt;
   double _belowThresholdAccumSec = 0.0; // 임계속도 미만 누적 시간(초)
@@ -89,7 +92,7 @@ class RecordController extends ChangeNotifier {
       // 필요 시 에러 핸들링
     });
 
-    _tick();
+    _startTimer();
     notifyListeners();
   }
 
@@ -98,6 +101,7 @@ class RecordController extends ChangeNotifier {
     _status = RecordStatus.paused;
     _stopwatch.stop();
     _posSub?.pause();
+    _timer?.cancel();
     _elapsed = _stopwatch.elapsed;
     notifyListeners();
   }
@@ -107,7 +111,7 @@ class RecordController extends ChangeNotifier {
     _status = RecordStatus.recording;
     _stopwatch.start();
     _posSub?.resume();
-    _tick();
+    _startTimer();
     notifyListeners();
   }
 
@@ -115,6 +119,7 @@ class RecordController extends ChangeNotifier {
     if (_status == RecordStatus.idle || _status == RecordStatus.finished) return;
     _status = RecordStatus.finished;
     _stopwatch.stop();
+    _timer?.cancel();
     await _posSub?.cancel();
     _posSub = null;
     _elapsed = _stopwatch.elapsed;
@@ -230,15 +235,19 @@ class RecordController extends ChangeNotifier {
 
   static double _deg2rad(double d) => d * (3.1415926535897932 / 180.0);
 
-  void _tick() {
-    if (_status != RecordStatus.recording) return;
-    _elapsed = _stopwatch.elapsed;
-    notifyListeners();
-    Future.delayed(const Duration(seconds: 1), _tick);
+  void _startTimer() {
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (_status == RecordStatus.recording) {
+        _elapsed = _stopwatch.elapsed;
+        notifyListeners();
+      }
+    });
   }
 
   @override
   void dispose() {
+    _timer?.cancel();
     _posSub?.cancel();
     super.dispose();
   }
